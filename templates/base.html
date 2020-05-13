@@ -17,7 +17,7 @@
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+  if (!event.target.matches('.ui button')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
@@ -35,7 +35,7 @@ window.onclick = function(event) {
     <title>Sublearn</title>
     {% endif %}
     <style type='text/css'>
-        .dropbtn {
+        .ui button {
             background-color: #e0e1e2;
             color: rgba(0,0,0,.6);
             padding: 12px;
@@ -46,7 +46,7 @@ window.onclick = function(event) {
             cursor: pointer;
             }
 
-        .dropbtn:hover, .dropbtn:focus {
+        .ui button:hover, .ui button:focus {
             background-color: rgb(156, 165, 170);
             }
 
@@ -90,7 +90,8 @@ window.onclick = function(event) {
                     <a class="ui button" href= "{% url 'users:logout' %}">
                         Log out
                     </a>
-                    <button onclick="myFunction()" class="dropbtn">increase the credit</button>
+                    
+                    <button onclick="myFunction()" class="ui button">increase the credit</button>
                         <div id="myDropdown" class="dropdown-content">
                             <a href="#">10000</a>
                             <a href="#">20000</a>
