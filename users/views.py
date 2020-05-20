@@ -7,6 +7,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 import random
 import re
+from .models import User, EmailCode
+from django.utils import timezone
 
 from .forms import UserUpdateForm, ProfileUpdateForm, UserRegisterForm
 
@@ -54,6 +56,21 @@ def user_profile(request):
 def send_code(request):
     code = random.randint(100000, 999999)
     email = request.POST.get('email')
+    now = timezone.now()
+    if User.objects.filter(email=email).exists():
+        # TODO: should return error
+        print('filan')
+    try:
+        code_obj = EmailCode.objects.get(email=email)
+        if code_obj.date_changed + timezone.timedelta(minutes=2) > now:
+            #TODO: error
+            print('felan')
+        else:
+            code_obj.code = code
+            code_obj.save()
+    except EmailCode.DoesNotExist:
+        code_obj = EmailCode.objects.create(email=email, code=code)
+        code_obj.save()
     subject = 'Sublearn Signup Code'
     message = 'Hello \n Your Signup code is ' + str(code) + '. \n \n Thank you for your registration.' \
                                                             '\n Sublearn Team'
