@@ -28,6 +28,7 @@ window.onclick = function(event) {
     }
   }
 }
+  
     </script>
     {% if title %}
     <title>{{ title }}</title>
@@ -75,8 +76,16 @@ window.onclick = function(event) {
 
         .show {display:block;}
     </style>
+     <script> const cfunction = () =>{
+        // document.getElementById("subtitle").classList.toggle("show")
+        document.getElementById("subtitle").className = "item active" 
+        // document.getElementById("subtitle").classList.add("item active")
+        console.log(document.getElementById("subtitle").className)
+    
+       }</script>
 </head>
 <body>
+   
 
 <!-- Following Menu -->
 {% block menu %}
@@ -134,10 +143,10 @@ window.onclick = function(event) {
             <a class="item active" href="{% url 'users:profile' %}">
                 Profile
             </a>
-            <a class="item" href="{% url 'subtitles:sub_processor' %}">
+            <a  id="subtitle" class="item" onclick="cfunction()" href="{% url 'subtitles:sub_processor' %}  ">
                 Subtitle
             </a>
-            <a class="item" href="{% url 'flashcards:load_decks' %}">
+            <a onclick="cfunction()" class="item" href="{% url 'flashcards:load_decks' %}">
                 Flashcard Decks
             </a>
         </div>
@@ -159,10 +168,12 @@ window.onclick = function(event) {
                 <h4 class="ui inverted header">About</h4>
                 <div class="ui inverted link list">
                     <a href="https://sharif.ir" class="item">Made with <i class='heart icon'></i> at Sharif University of Technology</a>
-                    <a href="https://ce.sharif.edu" class="item">Contact Us</a>
+                    <a href="{% url 'users:confirm' %}" class="item">al Us</a>
+
                 </div>
             </div>
             <div class="seven wide column">
+               <h1>salalalamss</h1>
                 <h4 class="ui inverted header">Notices</h4>
                 <p> Azadi Ave. Tehran, Sharif University of Technology.</p>
                 <i class='copyright icon'></i>2020 All rights reserved.

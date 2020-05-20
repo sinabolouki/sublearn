@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Confirm Email</title>
+   
+</head>
+<body >
+    <div>
+        <label>
+            ENTER VALIDATION CODE
+            <br>
+            <br>
+            
+            <div  class="ui input focus" style="text-align: center;">
+
+                <input maxlength="4" pattern="[0-9]*" type="text" placeholder="----" style="align-items: center; text-align: center; font-size: larger;">
+              </div>      
+              <br>
+              <span id="countdown">60</span> second<span id="plural">s</span>
+             <a href="{% url 'users:confirm' %}" ><i class="redo icon"></i></a>
+
+            </label>
+        
+
+    </div>
+
+    <script>
+        var seconds = document.getElementById("countdown").textContent;
+        var countdown = setInterval(function(){
+        seconds--;
+        (seconds == 1) ? document.getElementById("plural").textContent = "" : document.getElementById("plural").textContent = "s";
+        document.getElementById("countdown").textContent = seconds;
+        if (seconds <= 0) clearInterval(countdown);
+},1000);
+    </script> 
+    
+</body>
+</html>
+{% endblock content %}
