@@ -3,9 +3,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+import random
+import re
+from .models import User, EmailCode
+from django.utils import timezone
 
 from .forms import UserUpdateForm, ProfileUpdateForm, UserRegisterForm
-
 
 def user_home(request):
     context = {
@@ -47,6 +52,36 @@ def user_profile(request):
     p_form = ProfileUpdateForm(instance=request.user.profile)
 
     return render(request, 'users/profile1.html', context={'forms':[u_form, p_form], 'title':'Profile'})
+
+def send_code(request):
+    code = random.randint(100000, 999999)
+    email = request.POST.get('email')
+    now = timezone.now()
+    if User.objects.filter(email=email).exists():
+        # TODO: should return error
+        print('filan')
+    try:
+        code_obj = EmailCode.objects.get(email=email)
+        if code_obj.date_changed + timezone.timedelta(minutes=2) > now:
+            #TODO: error
+            print('felan')
+        else:
+            code_obj.code = code
+            code_obj.save()
+    except EmailCode.DoesNotExist:
+        code_obj = EmailCode.objects.create(email=email, code=code)
+        code_obj.save()
+    subject = 'Sublearn Signup Code'
+    message = 'Hello \n Your Signup code is ' + str(code) + '. \n \n Thank you for your registration.' \
+                                                            '\n Sublearn Team'
+    email_reg = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    email_from = settings.EMAIL_HOST_USER
+    if re.search(email_reg, email):
+        recipient_list = [email, ]
+    else:
+        recipitent_list = []
+    send_mail(subject, message, email_from, recipient_list)
+    return
 
 def user_index(request):
     return render(request, 'index.html')

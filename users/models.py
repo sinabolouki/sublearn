@@ -18,3 +18,8 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+class EmailCode(models.Model):
+    email = models.EmailField()
+    code = models.IntegerField()
+    date_changed = models.DateTimeField(auto_now=True)
+
