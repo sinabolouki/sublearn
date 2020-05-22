@@ -16,6 +16,9 @@
     font-size: 1.7em;
     font-weight: normal;
 }
+.bodyBase {
+    background-color: black ;
+}
 
 .ui.vertical.stripe h3 {
     font-size: 2em;

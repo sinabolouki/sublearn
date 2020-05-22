@@ -2,8 +2,10 @@
 {% block content %}
     <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
     <div class="ui container" style="margin-top: 1em;">
+        <p>sfd;oij</p>
         <h1> {{ set.movie_name }} </h1>
         {% if set.flashcard_set.all %}
+        
         <div class="ui cards">
             {% for flashcard in set.flashcard_set.all %}
                 <div class="flip_card ui card">

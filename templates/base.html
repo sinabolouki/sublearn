@@ -84,19 +84,19 @@ window.onclick = function(event) {
     
        }</script>
 </head>
-<body>
+<body class="bodyBase" style="background-image: url(download.jpeg);">
    
 
 <!-- Following Menu -->
 {% block menu %}
 <div class="ui large top menu" style="margin:0">
     <div class="ui container">
-        <a class="active item"><i class="home large icon"></i></a>
+        <a href="../templates/index.html" class="item"><i class="home large icon"></i></a>
         <div class="right menu">
             <div class="item">
                 {% if user.is_authenticated %}
                 <div>
-                    <a class="ui button" href= "{% url 'users:logout' %}">
+                    <a  class="ui button" href= "{% url 'users:logout' %}">
                         Log out
                     </a>
                     
