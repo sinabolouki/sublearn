@@ -25,7 +25,9 @@
                     {{ field }}
                 </div>
             {% endfor %}
-
+            <div class = "field" style="margin-top: 1em;">
+                <a href="{% url 'users:forgotPassword' %}"> Forgot Password</a>
+            </div>
             <button class="ui button" type="submit">Submit</button>
         </form>
         <div class = "field" style="margin-top: 1em;">
