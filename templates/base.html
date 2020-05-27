@@ -129,9 +129,15 @@ window.onclick = function(event) {
 {% if messages %}
 {% for message in messages %}
 <div class="ui container" style="margin-top: 1em;">
+    {%  if message.tag != "ERROR" %}
     <div class="ui olive message">
         {{ message }}
     </div>
+    {%  else %}
+    <div class="ui red message">
+        {{ message }}
+    </div>
+    {%  endif %}
 </div>
 {% endfor %}
 {% endif %}

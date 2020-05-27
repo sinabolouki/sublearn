@@ -21,22 +21,52 @@ def user_home(request):
 
 def user_register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f"Account created for {username}! You can login now")
-            return redirect("users:login")
-        else:
-            print('hello')
+        print('Hello', request.POST.get('email'))
+        code = random.randint(100000, 999999)
+        email = request.POST.get('email')
+        now = timezone.now()
+        if User.objects.filter(email=email).exists():
+            messages.error(request, f'a user already exists with this email')
+            return render(request, 'users/signupEmail.html')
+        try:
+            code_obj = EmailCode.objects.get(email=email)
+            if code_obj.date_changed + timezone.timedelta(minutes=2) > now:
+                messages.error(request, f"code not sent to {email}: last code is not expired yet")
+                return render(request, 'users/signupEmail.html')
+            else:
+                code_obj.code = code
+                code_obj.save()
+        except EmailCode.DoesNotExist:
+            code_obj = EmailCode.objects.create(email=email, code=code)
+            code_obj.save()
+        recipient_list = [email, ]
+        subject = 'Sublearn Forget Password Code'
+        message = 'Hello \n Your Signup code is ' + str(code) + '. \n \n Thank you for your registration.' \
+                                                                '\n Sublearn Team'
+        email_from = settings.EMAIL_HOST_USER
+        res = send_mail(subject, message, email_from, recipient_list)
+        if res == 1:
+            messages.success(request, f"Email with code sent to {email}! ")
+        context = {
+            "title": 'Signup code',
+            "email": email
+        }
+        return render(request, 'users/confirm.html', context=context)
+        # if form.is_valid():
+        #     form.save()
+        #     username = form.cleaned_data.get('username')
+        #     messages.success(request, f"Account created for {username}! You can login now")
+        #     return redirect("users:login")
+        # else:
+        #     print('hello')
     else:
         form = UserRegisterForm()
 
-    context = {
-            "title": "User Register",
-            "form": form
-            }
-    return render(request, 'users/register.html', context=context)
+    # context = {
+    #         "title": "User Register",
+    #         "form": form
+    #         }
+    return render(request, 'users/signupEmail.html')
 
 @login_required
 def user_profile(request):
@@ -53,35 +83,39 @@ def user_profile(request):
 
     return render(request, 'users/profile1.html', context={'forms':[u_form, p_form], 'title':'Profile'})
 
-def send_code(request):
-    code = random.randint(100000, 999999)
-    email = request.POST.get('email')
-    now = timezone.now()
-    if User.objects.filter(email=email).exists():
-        # TODO: should return error
-        print('filan')
-    try:
-        code_obj = EmailCode.objects.get(email=email)
-        if code_obj.date_changed + timezone.timedelta(minutes=2) > now:
-            #TODO: error
-            print('felan')
-        else:
-            code_obj.code = code
+
+def forgot_password(request):
+    if request.method == 'POST':
+        code = random.randint(100000, 999999)
+        email = request.POST.get('email')
+        now = timezone.now()
+        if User.objects.filter(email=email).exists():
+            # TODO: should return error
+            print('filan')
+        try:
+            code_obj = EmailCode.objects.get(email=email)
+            if code_obj.date_changed + timezone.timedelta(minutes=2) > now:
+                #TODO: error
+                print('felan')
+            else:
+                code_obj.code = code
+                code_obj.save()
+        except EmailCode.DoesNotExist:
+            code_obj = EmailCode.objects.create(email=email, code=code)
             code_obj.save()
-    except EmailCode.DoesNotExist:
-        code_obj = EmailCode.objects.create(email=email, code=code)
-        code_obj.save()
-    subject = 'Sublearn Signup Code'
-    message = 'Hello \n Your Signup code is ' + str(code) + '. \n \n Thank you for your registration.' \
-                                                            '\n Sublearn Team'
-    email_reg = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-    email_from = settings.EMAIL_HOST_USER
-    if re.search(email_reg, email):
-        recipient_list = [email, ]
-    else:
-        recipitent_list = []
-    send_mail(subject, message, email_from, recipient_list)
-    return
+        subject = 'Sublearn Forget Password Code'
+        message = 'Hello \n Your Signup code is ' + str(code) + '. \n \n Thank you for your registration.' \
+                                                                '\n Sublearn Team'
+        email_reg = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        email_from = settings.EMAIL_HOST_USER
+        if re.search(email_reg, email):
+            recipient_list = [email, ]
+        else:
+            recipient_list = []
+        send_mail(subject, message, email_from, recipient_list)
+        return
+    return render(request, 'users/forgotPassword.html', context={'title' : 'Forget Password'})
+
 
 def user_index(request):
     return render(request, 'index.html')

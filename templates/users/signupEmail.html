@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="ui container" style="margin-top: 1em;">
+          <form class="ui form" method="POST">
+              {% csrf_token %}
+              {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="ui red message">
+                            Error with field {{ field.label }}: {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <div class="ui success message">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <div class="field">
+                <label>Enter Your Password</label>
+                <input type="email" name="email" placeholder="joey@gmail.com">
+            </div>
+              <button class="ui button" type="submit">Upload</button>
+          </form>
+    </div>
+{% endblock content %}
