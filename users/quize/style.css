@@ -24,6 +24,7 @@ p {
     width: 75%;
     margin: auto;
     padding-top: 5px;
+    
     /*-moz-box-shadow: 10px 10px 5px #888;
     -webkit-box-shadow: 10px 10px 5px #888;
     box-shadow: 10px 10px 5px #888;*/
@@ -78,7 +79,8 @@ font-family:"Georgia", Arial, sans-serif;
 	font-weight:bold;
     width: 100%;
     height: auto;
-    margin: auto;
+    margin: 100px;
+    float: right;
     border-radius: 6px;
     background-color: #f3dc45;
     text-align: center;

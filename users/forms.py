@@ -21,6 +21,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['image']
 
+<<<<<<< Updated upstream
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length = 500, help_text="Required")
@@ -28,3 +29,5 @@ class SignupForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+=======
+>>>>>>> Stashed changes

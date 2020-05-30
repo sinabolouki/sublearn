@@ -1,15 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <title>Confirm Email</title>
-   
-</head>
-<body >
+
+    <h1>You are {{ user.username }} </h1>
     <div>
         <label>
             ENTER VALIDATION CODE 
@@ -38,7 +30,5 @@
         if (seconds <= 0) clearInterval(countdown);
 },1000);
     </script> 
-    
-</body>
-</html>
+
 {% endblock content %}
