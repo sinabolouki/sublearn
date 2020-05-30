@@ -123,7 +123,7 @@
   </script>
 </head>
 <body class="pushable" data-gr-c-s-loaded="true">
-  
+
   <!-- Following Menu -->
   <div class="ui large top fixed menu transition hidden">
     <div class="ui container">
@@ -195,7 +195,21 @@
           </div>
         </div>
       </div>
-      
+        {% if messages %}
+        {% for message in messages %}
+        <div class="ui container" style="margin-top: 1em;">
+            {%  if message.tag != "ERROR" %}
+            <div class="ui olive message">
+                {{ message }}
+            </div>
+            {%  else %}
+            <div class="ui red message">
+                {{ message }}
+            </div>
+            {%  endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
       <div class="ui text container">
         <h1 class="ui inverted header">
           Sublearn
