@@ -1,4 +1,5 @@
-	
+{% extends "base.html" %}
+{% block content %}
 <html>
 <head>
 	<style>
@@ -24,9 +25,12 @@ p {
  .quizContainer {
     background-color: white;
     border-radius: 6px;
-    width: 75%;
-    margin: auto;
-    padding-top: 5px;
+    width: 100%;
+	height: 100%;
+    /* margin: auto; */
+    padding-top: 0px;
+	padding: 0px;
+	margin: 0px;
     
     /*-moz-box-shadow: 10px 10px 5px #888;
     -webkit-box-shadow: 10px 10px 5px #888;
@@ -193,19 +197,19 @@ $(document).ready(function ()
 	
 	$(this).find(".preButton").on("click", function () 
 	{		
-		console.log("slalama")
-		$('.quizContainer')
-  		.transition('fade')
+	
 		
         if (!quizOver) 
 		{
-			if(currentQuestion == 0) { return false; }
+			if(currentQuestion == 0) {
+				
+				 return false; }
 	
 			if(currentQuestion == 1) {
 			  $(".preButton").attr('disabled', 'disabled');
 			}
 			
-				currentQuestion--; // Since we have already displayed the first question on DOM ready
+				currentQuestion--;
 				if (currentQuestion < questions.length) 
 				{
 					displayCurrentQuestion();
@@ -241,7 +245,7 @@ $(document).ready(function ()
 				}
 				iSelectedAnswer[currentQuestion] = val;
 				
-				currentQuestion++; // Since we have already displayed the first question on DOM ready
+				currentQuestion++; 
 				if(currentQuestion >= 1) {
 					  $('.preButton').prop("disabled", false);
 				}
@@ -315,7 +319,6 @@ function timedCount()
 	}
 	
 	
-// This displays the current question AND the choices
 function displayCurrentQuestion() 
 {
 
@@ -362,7 +365,6 @@ function hideScore()
     $(document).find(".result").hide();
 }
 
-// This displays the current question AND the choices
 function viewResults() 
 {
 
@@ -374,9 +376,7 @@ function viewResults()
     var questionClass = $(document).find(".quizContainer > .question");
     var choiceList = $(document).find(".quizContainer > .choiceList");
     var numChoices = questions[currentQuestion].choices.length;
-    // Set the questionClass text to the current question
     $(questionClass).text(question);
-    // Remove all current <li> elements (if any)
     $(choiceList).find("li").remove();
     var choice;
 	
@@ -419,7 +419,7 @@ function viewResults()
 </script>
 <title>Sublearn</title>
 <body style="background-image: url(download.jpeg);">
-    <div class="quizContainer container-fluid well well-lg" style=" background-repeat: no-repeat; background-size: cover;   background-image: url(data:image/jpeg;base64,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) !important;">
+    <div class="quizContainer" style=" background-repeat: no-repeat; background-size: cover;   background-image: url(data:image/jpeg;base64,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) !important;">
         <div id="quiz1" class="text-center">
             <h3>Sublearn quize</h3>
 			<h4 style="color:#FF0000;position:absolute;left:70%;top:30%;"  ><span id="iTimeShow">Time Remaining: </span><br/><span id='timer' style="font-size:25px;"></span></h4>
@@ -435,9 +435,13 @@ function viewResults()
         <div class="question"></div>
         <ul class="choiceList"></ul>
         <div class="quizMessage"></div>
-        <div class="result"></div>
-		<button class="preButton" >Previous Question</button>
-		<button class="nextButton" >Next Question</button>
+		<div class="result"></div>
+		<div style="background-color: aqua; ">
+			<button class="preButton" style="width: 160px;" >Previous Question</button>
+		
+			<button class="nextButton" style="width: 160px;" >Next Question</button>
+		</div>
 	</div>
 	</body>
   </html>
+  {% endblock content %}
