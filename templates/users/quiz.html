@@ -358,6 +358,12 @@ function displayScore()
 {
     $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
     $(document).find(".quizContainer > .result").show();
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", yourUrl, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+    value: correctAnswers
+}));
 }
 
 function hideScore() 
@@ -434,8 +440,10 @@ function viewResults()
 	
         <div class="question"></div>
         <ul class="choiceList"></ul>
-        <div class="quizMessage"></div>
+		<div class="quizMessage"></div>
+		<form  method="POST">
 		<div class="result"></div>
+	</form >
 		<div style="background-color: aqua; ">
 			<button class="preButton" style="width: 160px;" >Previous Question</button>
 		
