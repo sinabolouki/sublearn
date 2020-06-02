@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+    <img class="ui centered small circular image" src="/media/logo.jpeg">    
     <div class="ui container" cstyle="margin-top: 1em;">
         <form class="ui form" method="POST">
             {% csrf_token %}
@@ -27,8 +28,6 @@
             {% endfor %}
             <div class = "field" style="margin-top: 1em;">
                 <a href="{% url 'users:password_reset' %}"> Forgot Password</a>
-                <br>
-                <a href="{% url 'users:newPassword' %}"> New Password</a>
             </div>
             <button class="ui button" type="submit">Submit</button>
         </form>

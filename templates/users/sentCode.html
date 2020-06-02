@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="ui container" style="padding-top: 1em">
-        <h1>Please confirm your email address to complete the registration</h1>
-        <a href="{% url 'home' %}" style="font-size: large;">Home Page </a>
+
+    <div class="ui grid" style="margin: auto; min-height: 80%;">    
+        <div class="twelve wide stretched column" style="margin: auto;">
+                
+        <div class="ui container" style="text-align: center;">
+            <h1>Please confirm your email address to complete the registration</h1>
+            <a href="{% url 'home' %}" style="font-size: large;">Home Page </a>
+        </div>
+        
+        </div>
     </div>
 {% endblock content %}
