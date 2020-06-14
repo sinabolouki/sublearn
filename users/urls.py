@@ -20,7 +20,7 @@ urlpatterns = [
     path(r'', views.user_index, name='index'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
-    path('quiz_res/', views.quiz_result, name='quiz_rez'),
+    path('quiz_result/', views.quiz_result, name='quiz_rez'),
     url(r'^password_reset/$', auth_views.PasswordResetView.as_view(template_name='users/password_reset_form.html',
             email_template_name='users/password_reset_email.html', subject_template_name='users/password_reset_subject.txt',
             success_url = '/users/password_reset/done'),

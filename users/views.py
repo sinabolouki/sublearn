@@ -176,14 +176,9 @@ def user_index(request):
 
 def quiz_result(request):
     if request.method == 'POST':
-        # user_id = request.POST.get('user_id')
         result = request.POST.get('result')
-        # if user_id is None or user_id == '' or user_id == 'null':
-        #     data = {'response': 'error',
-        #             'error_message': 'no user found with this id'}
-        #     return JsonResponse(data)
         try:
-            user = User.objects.get()
+            user = request.user
             user.profile.quiz_score = float(result)
             user.profile.save()
             user.save()
