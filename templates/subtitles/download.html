@@ -3,8 +3,64 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Search for subtitles</title>
-	<link rel="stylesheet" href="styles.css">
+
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
+        *{
+            margin: 0;
+            padding: 0;
+            outline: none;
+            box-sizing: border-box;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        body{
+            background: url('https://i.ibb.co/Kw97ZxB/bg.jpg') no-repeat center;
+            background-size: cover;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .wrapper{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0,0.6);
+            max-width: 550px;
+            width: 100%;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 5px;
+        }
+
+        .wrapper .input {
+            width: 85%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .searchbtn {
+            background: #ffec00;
+            width: 10%;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .searchbtn .fas{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
 	
@@ -15,6 +71,24 @@
 	placeholder="Enter The movie name...">
 	<button class="searchbtn" onclick="search_movie()"><i class="fas fa-search"></i></button>
 </div>
-<script src="searchMovie.js"></script>
+
+<script>
+    function search_movie() {
+    let input = document.getElementById('movieName').value;
+    input = input.toLowerCase();
+    link_generator(input);
+}
+
+function link_generator(name) {
+    let a = document.createElement('a');
+    let link = document.createTextNode("DO IT");
+    a.appendChild(link);
+    a.title = "DO IT";
+    name = name.replace(/\s+/g, '+');
+    a.href = "https://www.google.com/search?q=" + name + "+subtitle";
+    window.location.href = a.href;
+    // document.body.appendChild(a);
+}
+</script>
 </body>
 </html>
