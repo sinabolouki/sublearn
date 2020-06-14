@@ -2,7 +2,6 @@
 {% block content %}
     <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
     <div class="ui container" style="margin-top: 1em;">
-        <p>sfd;oij</p>
         <h1> {{ set.movie_name }} </h1>
         {% if set.flashcard_set.all %}
         
@@ -14,7 +13,7 @@
                         <h2> {{ flashcard.english_word }} </h2>
                     </div>
                     <div class="content center aligned back">
-                            <h3> {{ flashcard.english_word }} </h3>
+                        <h3> {{ flashcard.english_word }} </h3>
                         <div class="content">
                             <h3> {{ flashcard.translation }} </h3>
                         </div> <br>
@@ -32,12 +31,11 @@
         {% else %}
             <h2>This movie deck does not have any flashcards.</h2>
         {% endif %}
+        <br>
     </div>
-{#    <script>#}
-{#    <!--#}
-{#    $(function($) {#}
-{#      $(".flip_card").flip();#}
-{#    })#}
-{#    -->#}
-{#    </script>#}
+    <script>
+        $(function($) {
+            $(".flip_card").flip();
+        })
+    </script>
 {% endblock content %}
