@@ -8,14 +8,14 @@ from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.http import JsonResponse
 import random
 import re
 from django.utils import timezone
 
 from .forms import UserUpdateForm, ProfileUpdateForm, UserRegisterForm, SignupForm
 from .tokens import account_activation_token
-from .models import User, EmailCode
+from .models import User, EmailCode, Profile
 
 
 def user_home(request):
@@ -172,3 +172,23 @@ def activate(request, uidb64, token):
 def user_index(request):
     return render(request, 'index.html')
 
+
+def quiz_result(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        result = request.POST.get('result')
+        if user_id is None or user_id == '' or user_id == 'null':
+            data = {'response': 'error',
+                    'error_message': 'no user found with this id'}
+            return JsonResponse(data)
+        try:
+            user = User.objects.get(id=user_id)
+            user.profile.quiz_score = float(result)
+            user.profile.save()
+            user.save()
+        except User.DoesNotExist:
+            data = {'response': 'error',
+                    'error_message': 'no user found with this id'}
+            return JsonResponse(data)
+        data = {'response': 'success'}
+        return JsonResponse(data)
