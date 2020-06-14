@@ -22,7 +22,12 @@ def user_home(request):
     context = {
             "title": "User Home",
             }
+    print(request.META)
     return render(request, 'users/home.html', context=context)
+
+@login_required()
+def get_quiz(request):
+    return render(request, 'users/quiz.html')
 
 
 def user_register(request):
