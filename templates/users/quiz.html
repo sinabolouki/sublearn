@@ -179,6 +179,47 @@
 			correctAnswer: 2
 		}
 	];
+    var questions = [{
+    question: "1. what does apple mean?",
+    choices: ["سیب", "آلو بخارا", "انگور", "آلو خشک"],
+    correctAnswer: 1
+}, {
+    question: "2.  what does car mean?",
+    choices: ["ماشین لباشویی", "ماشین", "لباس", "شستشو"],
+    correctAnswer: 2
+}, {
+    question: "3. what does bed mean?",
+    choices: ["تخت خواب", "تخته نرد", "پسر بد", "دختر بد"],
+    correctAnswer: 1
+}, {
+    question: " 4. what does water mean?",
+    choices: ["آتش", "آب", "خاک", "هوا"],
+    correctAnswer: 2
+}, {
+    question: "5. what does sugar mean?",
+    choices: ["یه تیکه طنز دیگه", "از اون آدم پولدارا", "شکر", "قند"],
+    correctAnswer: 3
+},{
+	question: "6. what does photo mean?",
+    choices: ["عکاس", "عکس", "مداد رنگی", "ذرات ماده"],
+    correctAnswer: 2
+},{
+	question: "2. q2",
+    choices: ["2", "2", "2", "2"],
+    correctAnswer: 2
+},{
+	question: "2. q2",
+    choices: ["2", "2", "2", "2"],
+    correctAnswer: 2
+},{
+	question: "2. q2",
+    choices: ["2", "2", "2", "2"],
+    correctAnswer: 2
+},{
+	question: "2. q2",
+    choices: ["2", "2", "2", "2"],
+    correctAnswer: 2
+}];
 
 
 var currentQuestion = 0;
@@ -360,12 +401,14 @@ function displayScore()
 {
     $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
     $(document).find(".quizContainer > .result").show();
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", yourUrl, true);
-	xhr.setRequestHeader('Content-Type', 'application/json');
-	xhr.send(JSON.stringify({
-    value: correctAnswers
-}));
+	$.ajax({
+         url: '/users/views/quiz_result/',
+         data: {'result': correctAnswers},
+         type: 'POST'
+       }).done(function(response){
+         console.log(response);
+       });
+	
 }
 
 function hideScore() 
@@ -437,6 +480,8 @@ function viewResults()
 				<span id='timer' style="font-size:25px;"></span>
 			</h4>
 			<h2>English Test</h2>
+			
+		
 		</div>
 	
         <div class="question"></div>

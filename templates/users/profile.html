@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="ui container" style="margin-top:1em">
-        <h1>You are {{ user.username }} </h1>
+        <!-- <h1>You are dd{{ user.username }} </h1> -->
+        <h1>your score is {{user.result}}</h1>
         <div class="ui small image">
             <img src = "{{ user.profile.image.url }}">
         </div>
