@@ -7,7 +7,7 @@
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
-/* This container is needed to position the front and back side */
+/* This container is needed to position the front and back side 
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -41,5 +41,6 @@
 .flip-card-back {
   background-color: dodgerblue;
   color: white;
+  display: none;
   transform: rotateY(180deg);
 }

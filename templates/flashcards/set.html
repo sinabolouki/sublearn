@@ -65,14 +65,14 @@
         <h1> {{ set.movie_name }} </h1>
         {% if set.flashcard_set.all %}
         
-        <div class="ui cards">
+        <div class="ui cards" >
             {% for flashcard in set.flashcard_set.all %}
-                <div class="flip_card ui card">
-                    <div class="content center aligned front">
+                <div class="flip_card ui card" >
+                    <div class="content center aligned front" >
                         <br>
                         <h2> {{ flashcard.english_word }} </h2>
                     </div>
-                    <div class="content center aligned back">
+                    <div class="content center aligned back" >
                         <h3> {{ flashcard.english_word }} </h3>
                         <div class="content">
                             <h3> {{ flashcard.translation }} </h3>

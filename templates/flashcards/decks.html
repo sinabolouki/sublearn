@@ -1,12 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+    *, *::before, *::after{
+        box-sizing: border-box;
+    }
+    .progressbar{
+        width: 500px;
+        position: relative;
+        height: 3em;
+        background-color: gray;
+        border-radius: 1.5em;
+        color: wheat ;
+
+    }
+    .progressbar::before{
+        position: absolute;
+        align-items: center;
+        left: .5em;
+        width: 30px;
+        min-width: 1rem;
+        max-width: calc(100% - 1em);
+        background-color: teal;
+        border-radius: 1.5em;
+        right: .5em;
+        top: .5em;
+        bottom: .5em;
+
+        display: flex;
+        content: attr(data-label);
+    }
+</style>
+<div class="progressbar" data-label="your progress"></div>
     <div class="ui container" style="margin-top: 5em; margin-bottom: 5em;">
         {% if movie_sets %}
-        <div class="ui cards">
+        <div class="ui cards" style="margin: 10dp;">
             {% for movie_set in movie_sets %}
-                <a  href="{% url 'flashcards:show_flashcards' movie_set.id %}" class="ui inverted violet button" style="font-size: 18pt; margin-bottom: 10pt;">
+                <a   href="{% url 'flashcards:show_flashcards' movie_set.id %}" class="ui inverted violet button" style="font-size: 18pt; margin-bottom: 10pt;">
                     <!-- <a href="{% url 'flashcards:show_flashcards' movie_set.id %}" style="align-items: center;"> -->
-                        {{ movie_set.movie_name }}
+                        <!-- {{ movie_set.movie_name }} -->
+                        {{movie_set.movie_name}}
                         <!-- <div class="content center aligned front">
                             <br>
                             <br>
@@ -14,7 +46,7 @@
                             <br>
                             <br>
                         </div> -->
-                        </div> -->
+                        
                     <!-- </a> -->
                     </a>
             {% endfor %}
