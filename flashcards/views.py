@@ -9,7 +9,9 @@ from django.http import JsonResponse
 def load_decks(request):
     movie_sets = request.user.movieset_set.all().order_by('-date_added')
     known_flash_cards = Flashcard.objects.filter(movie__user_id=request.user.id, times_remembered__gt=0).count()
-    context = {'movie_sets': movie_sets, 'title': 'Flashcard Decks', 'learnt_flashcards': known_flash_cards}
+    all_flash_cards = Flashcard.objects.filter(movie__user_id = request.user.id)
+    context = {'movie_sets': movie_sets, 'title': 'Flashcard Decks', 'learnt_flashcards': known_flash_cards,
+               'all_flashcards': all_flash_cards}
     return render(request, 'flashcards/decks.html', context)
 
 
