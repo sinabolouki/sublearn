@@ -21,10 +21,11 @@ from .models import User, EmailCode, Profile
 
 def user_home(request):
     context = {
-            "title": "User Home",
-            }
+        "title": "User Home",
+    }
     print(request.META)
     return render(request, 'users/home.html', context=context)
+
 
 @login_required()
 def get_quiz(request):
@@ -80,6 +81,7 @@ def user_register(request):
     #         }
     return render(request, 'users/signupEmail.html')
 
+
 @login_required
 def user_profile(request):
     if request.method == 'POST':
@@ -93,7 +95,8 @@ def user_profile(request):
     u_form = UserUpdateForm(instance=request.user)
     p_form = ProfileUpdateForm(instance=request.user.profile)
 
-    return render(request, 'users/profile1.html', context={'forms':[u_form, p_form], 'title':'Profile'})
+    return render(request, 'users/profile1.html', context={'forms': [u_form, p_form], 'title': 'Profile',
+                                                           'quiz_res': request.user.profile.quiz_score})
 
 
 def forgot_password(request):
@@ -107,7 +110,7 @@ def forgot_password(request):
         try:
             code_obj = EmailCode.objects.get(email=email)
             if code_obj.date_changed + timezone.timedelta(minutes=2) > now:
-                #TODO: error
+                # TODO: error
                 print('felan')
             else:
                 code_obj.code = code
@@ -126,7 +129,8 @@ def forgot_password(request):
             recipient_list = []
         send_mail(subject, message, email_from, recipient_list)
         return
-    return render(request, 'users/forgotPassword.html', context={'title' : 'Forget Password'})
+    return render(request, 'users/forgotPassword.html', context={'title': 'Forget Password'})
+
 
 def signup(request):
     if request.method == 'POST':
@@ -169,6 +173,7 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Activation link is invalid!')
         return redirect('home')
+
 
 def user_index(request):
     return render(request, 'index.html')

@@ -2,6 +2,27 @@
 {% block content %}
     <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
     <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
         function iKnowFunc(a){
             var csrftoken = getCookie('csrftoken');
             $.ajaxSetup({
@@ -12,7 +33,7 @@
             }
             });
             $.ajax({
-                url: '/flashcard/result/',
+                url: '/flashcards/result/',
                 data: {'result': 1, 'id': a},
                 type: 'POST',
             }).done(function(response){
@@ -31,7 +52,7 @@
             }
             });
             $.ajax({
-                url: '/flashcard/result/',
+                url: '/flashcards/result/',
                 data: {'result': 0 , 'id':a},
                 type: 'POST',
             }).done(function(response){
