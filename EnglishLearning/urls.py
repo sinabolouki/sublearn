@@ -25,4 +25,5 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('subs/', include('subtitles.urls')),
     path('flashcards/', include('flashcards.urls')),
+    path('exams/', include('exams.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
