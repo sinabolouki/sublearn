@@ -155,8 +155,9 @@ window.onclick = function(event) {
             <a onclick="cfunction()" class="item" href="{% url 'flashcards:load_decks' %}">
                 Flashcard Decks
             </a>
-            
-            
+            <a onclick="cfunction()" class="item" href="{% url 'users:quiz' %}">
+                Quiz
+            </a>
         </div>
     </div>
     {% endif %}
