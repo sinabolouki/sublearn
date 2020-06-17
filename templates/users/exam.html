@@ -1,0 +1,456 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    h1 {
+        font-family:'Gabriola', serif;
+    }
+    ul {
+        list-style: none;
+    }
+    li {
+        font-family:'Cambria', serif;
+        font-size: 1.5em;
+    }
+    input[type=radio] {
+        border: 0px;
+        width: 20px;
+        height: 2em;
+    }
+    p {
+        font-family:'Gabriola', serif;
+    }
+    /* Quiz Classes */
+    .quizContainer {
+        background-color: white;
+        border-radius: 6px;
+        width: 100%;
+        height: 100%;
+        /* margin: auto; */
+        padding-top: 0px;
+        padding: 0px;
+        margin: 0px;
+        
+        /*-moz-box-shadow: 10px 10px 5px #888;
+        -webkit-box-shadow: 10px 10px 5px #888;
+        box-shadow: 10px 10px 5px #888;*/
+        position: relative;
+    }
+    .quizcontainer #quiz1
+    {
+    text-shadow:1px 1px 2px orange;
+    font-family:"Georgia", Arial, sans-serif;
+    }
+    .nextButton {
+        box-shadow: 3px 3px 5px #888;
+        border-radius: 6px;
+    /* width: 150px;*/
+        height: 40px;
+        text-align: center;
+        background-color: lightgrey;
+        /*clear: both;*/
+        color: red;
+        font-family:'Gabriola', serif;
+        position: relative;
+        margin: auto;
+        font-size:25px;
+        font-weight:bold;
+        padding-top: 5px;
+        float:right;
+        right:30%;
+    }
+
+    .preButton {
+        box-shadow: 3px 3px 5px #888;
+        border-radius: 6px;
+        /*width: 150px;*/
+        height: 40px;
+        text-align: center;
+        background-color: lightgrey;
+        /*clear: both;*/
+        color: red;
+        font-family:'Gabriola', serif;
+        position: relative;
+        margin: auto;
+        font-size:25px;
+        font-weight:bold;
+        padding-top: 5px;
+        float:left;
+        left:30%;
+    }
+
+    .question {
+        font-family:'Century', serif;
+        font-size: 1.5em;
+        font-weight:bold;
+        width: 100%;
+        height: auto;
+        margin: auto;
+        float: right;
+        border-radius: 6px;
+        background-color: #f3dc45;
+        text-align: center;
+    }
+    .quizMessage {
+        background-color: peachpuff;
+        border-radius: 6px;
+        width: 20%;
+        margin: auto;
+        text-align: center;
+        padding: 5px;
+        font-size:20px;
+        font-weight:bold;
+        font-family:'Gabriola', serif;
+        color: red;
+        position:absolute;
+        top:80%;
+        left:40%;
+    }
+    .choiceList {
+        font-family: 'Arial', serif;
+        color: #ed12cd;
+        font-size:15px;
+        font-weight:bold;
+    }
+    .result {
+        width: 40%;
+        height: auto;
+        border-radius: 6px;
+        background-color: linen;
+        margin: auto;
+        color:green;
+        text-align: center;
+        font-size:25px;
+        font-family:'Verdana', serif;
+        font-weight:bold;
+        position:absolute;
+        top:80%;
+        left:30%;
+    }
+    /* End of Quiz Classes */
+</style>
+
+
+
+<script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+
+<script>
+    questions = {}
+    var currentQuestion = 0;
+    var viewingAns = 0;
+    var correctAnswers = 0;
+    var quizOver = false;
+    var iSelectedAnswer = [];
+	var c=180;
+	var t;
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    function getQuestion(){
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+        });
+        $.ajax({
+            url: '/exams/create/',
+            type: 'POST',
+        }).done(function(response){
+            questions = response.questions;
+            var secondKey = Object.keys(questions)[0]; //fetched the key at second index
+            console.log(questions[secondKey][0]);     
+            getAnswers();
+        });
+
+    }
+    function getAnswers(){
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+        });
+        $.ajax({
+            url: '/exams/result/',
+            type: 'POST',
+        }).done(function(response){
+            console.log(response);
+        });
+
+    }
+$(document).ready(function () 
+{
+    // Display the first question
+    var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+        });
+        $.ajax({
+            url: '/exams/create/',
+            type: 'POST',
+        }).done(function(response){
+            questions = response.questions;
+            var secondKey = Object.keys(questions)[0]; //fetched the key at second index
+            console.log(questions[secondKey][0]);     
+            displayCurrentQuestion();
+    $(this).find(".quizMessage").hide();
+    $(this).find(".preButton").attr('disabled', 'disabled');
+	
+	timedCount();
+	
+	$(this).find(".preButton").on("click", function () 
+	{		
+	
+		
+        if (!quizOver) 
+		{
+			if(currentQuestion == 0) {
+				
+				 return false; }
+	
+			if(currentQuestion == 1) {
+			  $(".preButton").attr('disabled', 'disabled');
+			}
+			
+				currentQuestion--;
+				if (currentQuestion < 10) 
+				{
+					displayCurrentQuestion();
+					
+				} 					
+		} else {
+			if(viewingAns == 3) { return false; }
+			currentQuestion = 0; viewingAns = 3;
+			viewResults();		
+		}
+    });
+
+	
+	// On clicking next, display the next question
+    $(this).find(".nextButton").on("click", function () 
+	{
+        if (!quizOver) 
+		{
+			
+            var val = $("input[type='radio']:checked").val();
+
+            if (val == undefined) 
+			{
+                $(document).find(".quizMessage").text("Please select an answer");
+                $(document).find(".quizMessage").show();
+            } 
+			else 
+			{
+                $(document).find(".quizMessage").hide();
+				if (val == 1) 
+				{
+					correctAnswers++;
+				}
+				iSelectedAnswer[currentQuestion] = val;
+				
+				currentQuestion++; 
+				if(currentQuestion >= 1) {
+					  $('.preButton').prop("disabled", false);
+				}
+				if (currentQuestion < 10) 
+				{
+					displayCurrentQuestion();
+					
+				} 
+				else 
+				{
+					displayScore();
+					$('#iTimeShow').html('Quiz Time Completed!');
+					$('#timer').html("You scored: " + correctAnswers + " out of: " + 10);
+					c=185;
+					$(document).find(".preButton").text("View Answer");
+					$(document).find(".nextButton").text("Play Again?");
+					quizOver = true;
+					return false;
+					
+				}
+			}
+					
+		}	
+		else 
+		{ // quiz is over and clicked the next button (which now displays 'Play Again?'
+			quizOver = false; $('#iTimeShow').html('Time Remaining:'); iSelectedAnswer = [];
+			$(document).find(".nextButton").text("Next Question");
+			$(document).find(".preButton").text("Previous Question");
+			 $(".preButton").attr('disabled', 'disabled');
+			resetQuiz();
+			viewingAns = 1;
+			displayCurrentQuestion();
+			hideScore();
+		}
+    });
+});
+
+
+            getAnswers();
+        });    
+
+    
+
+function timedCount()
+	{
+		if(c == 185) 
+		{ 
+			return false; 
+		}
+		
+		var hours = parseInt( c / 3600 ) % 24;
+		var minutes = parseInt( c / 60 ) % 60;
+		var seconds = c % 60;
+		var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
+		$('#timer').html(result);
+		
+		if(c == 0 )
+		{
+					displayScore();
+					$('#iTimeShow').html('Quiz Time Completed!');
+					$('#timer').html("You scored: " + correctAnswers + " out of: " + 10);
+					c=185;
+					$(document).find(".preButton").text("View Answer");
+					$(document).find(".nextButton").text("Play Again?");
+					quizOver = true;
+					return false;
+					
+		}
+		
+		c = c - 1;
+		t = setTimeout(function()
+		{
+			timedCount()
+		},1000);
+	}
+function displayCurrentQuestion() 
+{
+
+	if(c == 185) { c = 180; timedCount(); }
+    //console.log("In display current Question");
+    var secondKey = Object.keys(questions)[currentQuestion];
+    var question = secondKey;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = 4;
+    // Set the questionClass text to the current question
+    $(questionClass).text(question);
+    // Remove all current <li> elements (if any)
+    $(choiceList).find("li").remove();
+    var choice;
+	
+	
+    for (i = 0; i < numChoices; i++) 
+	{
+        choice = questions[secondKey][i];
+		
+		if(iSelectedAnswer[currentQuestion] == i) {
+			$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+		} else {
+			$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+		}
+    }
+}
+function hideScore() 
+{
+    $(document).find(".result").hide();
+}
+
+function viewResults() 
+{
+
+	if(currentQuestion == 10) { currentQuestion = 0;return false; }
+	if(viewingAns == 1) { return false; }
+
+	hideScore();
+    var secondKey = Object.keys(questions)[currentQuestion];
+    var question = secondKey;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = 4;
+    $(questionClass).text(question);
+    $(choiceList).find("li").remove();
+    var choice;
+	
+	
+	for (i = 0; i < numChoices; i++) 
+	{
+        choice = questions[secondKey][i];
+		
+		if(iSelectedAnswer[currentQuestion] == i) {
+			if(1 == i) {
+				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			} else {
+				$('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			}
+		} else {
+			if(1 == i) {
+				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			} else {
+				$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			}
+		}
+    }
+	
+	currentQuestion++;
+	
+	setTimeout(function()
+		{
+			viewResults();
+		},3000);
+}
+</script>
+<div class="quizContainer" >
+    <div id="quiz1" class="text-center">
+        <h3>Sublearn quize</h3>
+        <h4 style="color:#FF0000;position:absolute;left:70%;top:30%;"  >
+            <span id="iTimeShow">Time Remaining: </span>
+            <br/>
+            <span id='timer' style="font-size:25px;"></span>
+        </h4>
+        <h2>English Test</h2>
+        
+    
+    </div>
+
+    <div class="question"></div>
+    <ul class="choiceList"></ul>
+    <div class="quizMessage"></div>
+    <form  method="POST">
+        <div class="result"></div>
+    </form >
+    <div style="background-color: aqua; ">
+        <button class="preButton"  style="width: 160px;" >Previous Question</button>
+        <button class="nextButton" style="width: 160px;" >Next Question</button>
+    </div>
+</div>
+<button onclick="getQuestion()">fsd</button>
+{% endblock content %}
