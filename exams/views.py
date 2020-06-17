@@ -31,7 +31,7 @@ def create_exam(request):
         new_ques.answer_4 = rand_cards[2].translation
         exams[card.english_word] = {card.translation, rand_cards[0].translation, rand_cards[1].translation,
                                     rand_cards[2].translation}
-    data = {'questions': exams}
+    data = {'questions': exams, 'id': new_exam.id}
     return JsonResponse(data)
 
 
