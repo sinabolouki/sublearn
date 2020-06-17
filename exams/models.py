@@ -14,7 +14,7 @@ class Exam(models.Model):
 
 class ExamQuestion(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    number = models.IntegerField()
+    number = models.IntegerField(null=True)
     word = models.CharField(max_length=100)
     right_answer = models.CharField(max_length=100)
     answer_2 = models.CharField(max_length=100)
