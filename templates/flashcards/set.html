@@ -61,6 +61,10 @@
 	
         }
     </script>
+    <style>
+    
+
+    </style>
     <div class="ui container" style="margin-top: 1em;">
         <h1> {{ set.movie_name }} </h1>
         {% if set.flashcard_set.all %}
@@ -68,11 +72,11 @@
         <div class="ui cards" >
             {% for flashcard in set.flashcard_set.all %}
                 <div class="flip_card ui card" >
-                    <div class="content center aligned front" >
+                    <div class="content center aligned front" style="-webkit-transform:rotateY(0deg);" >
                         <br>
                         <h2> {{ flashcard.english_word }} </h2>
                     </div>
-                    <div class="content center aligned back" >
+                    <div class="content center aligned back" id="id1" >
                         <h3> {{ flashcard.english_word }} </h3>
                         <div class="content">
                             <h3> {{ flashcard.translation }} </h3>
@@ -96,6 +100,14 @@
     <script>
         $(function($) {
             $(".flip_card").flip();
+            // // if (document.getElementById("id1").style.visibility == 'hidden')
+            // //     document.getElementById("id1").style.visibility = 'hidden'
+            // console.log("slamal")
         })
+        // function function1(){
+        //     if (document.getElementById("id1").style.visibility=='hidden'){
+        //         document.getElementById("id1").style
+        //     }
+        // }
     </script>
 {% endblock content %}

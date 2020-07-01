@@ -363,33 +363,33 @@ function timedCount()
 	}
 	
 	
-// function displayCurrentQuestion() 
-// {
+function displayCurrentQuestion() 
+{
 
-// 	if(c == 185) { c = 180; timedCount(); }
-//     //console.log("In display current Question");
-//     var question = questions[currentQuestion].question;
-//     var questionClass = $(document).find(".quizContainer > .question");
-//     var choiceList = $(document).find(".quizContainer > .choiceList");
-//     var numChoices = questions[currentQuestion].choices.length;
-//     // Set the questionClass text to the current question
-//     $(questionClass).text(question);
-//     // Remove all current <li> elements (if any)
-//     $(choiceList).find("li").remove();
-//     var choice;
+	if(c == 185) { c = 180; timedCount(); }
+    //console.log("In display current Question");
+    var question = questions[currentQuestion].question;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = questions[currentQuestion].choices.length;
+    // Set the questionClass text to the current question
+    $(questionClass).text(question);
+    // Remove all current <li> elements (if any)
+    $(choiceList).find("li").remove();
+    var choice;
 	
 	
-//     for (i = 0; i < numChoices; i++) 
-// 	{
-//         choice = questions[currentQuestion].choices[i];
+    for (i = 0; i < numChoices; i++) 
+	{
+        choice = questions[currentQuestion].choices[i];
 		
-// 		if(iSelectedAnswer[currentQuestion] == i) {
-// 			$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-// 		} else {
-// 			$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-// 		}
-//     }
-// }
+		if(iSelectedAnswer[currentQuestion] == i) {
+			$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+		} else {
+			$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+		}
+    }
+}
 
 function resetQuiz()
 {
@@ -397,26 +397,26 @@ function resetQuiz()
     correctAnswers = 0;
     hideScore();
 }
-// function getCookie(name) {
-//     var cookieValue = null;
-//     if (document.cookie && document.cookie !== '') {
-//         var cookies = document.cookie.split(';');
-//         for (var i = 0; i < cookies.length; i++) {
-//             var cookie = cookies[i].trim();
-//             // Does this cookie string begin with the name we want?
-//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-//                 break;
-//             }
-//         }
-//     }
-//     return cookieValue;
-// }
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
-// function csrfSafeMethod(method) {
-//     // these HTTP methods do not require CSRF protection
-//     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-// }
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
 
 
 function displayScore()
@@ -441,53 +441,53 @@ function displayScore()
 	
 }
 
-// function hideScore() 
-// {
-//     $(document).find(".result").hide();
-// }
+function hideScore() 
+{
+    $(document).find(".result").hide();
+}
 
-// function viewResults() 
-// {
+function viewResults() 
+{
 
-// 	if(currentQuestion == 10) { currentQuestion = 0;return false; }
-// 	if(viewingAns == 1) { return false; }
+	if(currentQuestion == 10) { currentQuestion = 0;return false; }
+	if(viewingAns == 1) { return false; }
 
-// 	hideScore();
-//     var question = questions[currentQuestion].question;
-//     var questionClass = $(document).find(".quizContainer > .question");
-//     var choiceList = $(document).find(".quizContainer > .choiceList");
-//     var numChoices = questions[currentQuestion].choices.length;
-//     $(questionClass).text(question);
-//     $(choiceList).find("li").remove();
-//     var choice;
+	hideScore();
+    var question = questions[currentQuestion].question;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = questions[currentQuestion].choices.length;
+    $(questionClass).text(question);
+    $(choiceList).find("li").remove();
+    var choice;
 	
 	
-// 	for (i = 0; i < numChoices; i++) 
-// 	{
-//         choice = questions[currentQuestion].choices[i];
+	for (i = 0; i < numChoices; i++) 
+	{
+        choice = questions[currentQuestion].choices[i];
 		
-// 		if(iSelectedAnswer[currentQuestion] == i) {
-// 			if(questions[currentQuestion].correctAnswer == i) {
-// 				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-// 			} else {
-// 				$('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-// 			}
-// 		} else {
-// 			if(questions[currentQuestion].correctAnswer == i) {
-// 				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-// 			} else {
-// 				$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-// 			}
-// 		}
-//     }
+		if(iSelectedAnswer[currentQuestion] == i) {
+			if(questions[currentQuestion].correctAnswer == i) {
+				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			} else {
+				$('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			}
+		} else {
+			if(questions[currentQuestion].correctAnswer == i) {
+				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			} else {
+				$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			}
+		}
+    }
 	
-// 	currentQuestion++;
+	currentQuestion++;
 	
-// 	setTimeout(function()
-// 		{
-// 			viewResults();
-// 		},3000);
-// }
+	setTimeout(function()
+		{
+			viewResults();
+		},3000);
+}
 
 </script>
 <script>
