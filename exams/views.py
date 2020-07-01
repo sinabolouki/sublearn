@@ -3,16 +3,33 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from flashcards.models import Flashcard
 import random
+from random import random
 from .models import Exam, ExamQuestion
+import numpy as np
+
+
 # Create your views here.
+
+def make_weights(n):
+    x = np.arange(1, n + 1, dtype=np.float64)
+    weights = 2 * n - x
+    return weights
 
 
 @login_required()
 def create_exam(request):
-    flashcards = Flashcard.objects.filter(movie__user_id=request.user.id)
+    movie_id = request.POST.get('id')
+    if movie_id is not None and movie_id != '' and movie_id != 'null':
+        flashcards = Flashcard.objects.filter(movie_id=request.user.id).order_by('-times_failed',
+                                                                                 'times_remembered')
+    else:
+        flashcards = Flashcard.objects.filter(movie__user_id=request.user.id).order_by('-times_failed',
+                                                                                       'times_remembered')
     flash_ids = list(flashcards.values_list('id', flat=True))
+    weights = make_weights(len(flash_ids))
     n = 10
-    rand_ids = random.sample(flash_ids, min(len(flash_ids), n))
+    rand_ids_arr = np.random.choice(flash_ids, p=weights, size=(n,), replace=False)
+    rand_ids = rand_ids_arr.tolist()
     random_cards = Flashcard.objects.filter(id__in=rand_ids)
     new_exam = Exam.objects.create(user_id=request.user.id)
     new_exam.save()
@@ -31,6 +48,7 @@ def create_exam(request):
         new_ques.answer_4 = rand_cards[2].translation
         exams[card.english_word] = [card.translation, rand_cards[0].translation, rand_cards[1].translation,
                                     rand_cards[2].translation]
+    print(exams)
     data = {'questions': exams, 'id': new_exam.id}
     return JsonResponse(data)
 
@@ -40,7 +58,7 @@ def calc_result(request):
     exam_id = request.POST.get('id')
     result = request.POST.get('result')
     try:
-        exam = Exam.objects.get(id= exam_id)
+        exam = Exam.objects.get(id=exam_id)
         if result is not None and result != '' and result != 'null':
             exam.result = float(result)
             exam.save()
