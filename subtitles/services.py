@@ -4,7 +4,7 @@ from googletrans import Translator
 
 def process_sub(text, file_type, score):
     important_words = {}
-    if file_type == '.srt':
+    if file_type == '.srt' or file_type == '.txt':
         text = text.decode('iso-8859-1')
         text = text.split('\r\n\r\n')
         for i, segment in enumerate(text):
