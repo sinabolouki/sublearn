@@ -17,7 +17,7 @@ urlpatterns = [
     path(r'logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name="logout"),
     path(r'confirm/', TemplateView.as_view(template_name='users/confirm.html'), name="confirm"),
     path(r'quize/', views.get_quiz, name="quiz"),
-    path(r'index/', views.user_index, name='index'),
+    path(r'index', TemplateView.as_view(template_name='index.html'), name="home"),
     path(r'', views.user_index, name='index'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),

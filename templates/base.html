@@ -91,7 +91,7 @@ window.onclick = function(event) {
 {% block menu %}
 <div class="ui large top menu" style="margin:0">
     <div class="ui container">
-        <a href="/templates/index.html" class="item"><i class="home large icon"></i></a>
+        <a href={%  url 'home' %} class="item"><i class="home large icon"></i></a>
         <div class="right menu">
             <div class="item">
                 {% if user.is_authenticated %}
