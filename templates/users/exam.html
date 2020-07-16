@@ -138,6 +138,7 @@
     questions = {}
     var currentQuestion = 0;
     var viewingAns = 0;
+    var secondKey;
     var correctAnswers = 0;
     var quizOver = false;
     var iSelectedAnswer = [];
@@ -203,7 +204,9 @@
     }
 $(document).ready(function () 
 {
-    // Display the first question
+    console.log(Object.entries(questions).length)
+ 
+ 
     var csrftoken = getCookie('csrftoken');
         $.ajaxSetup({
         beforeSend: function(xhr, settings) {
@@ -217,13 +220,21 @@ $(document).ready(function ()
             type: 'POST',
         }).done(function(response){
             questions = response.questions;
-            var secondKey = Object.keys(questions)[0]; //fetched the key at second index
+            console.log(questions)
+             secondKey = Object.keys(questions)[0]; //fetched the key at second index
             console.log(questions[secondKey][0]);     
             displayCurrentQuestion();
-    $(this).find(".quizMessage").hide();
-    $(this).find(".preButton").attr('disabled', 'disabled');
+            timedCount();
+            console.log("after hsow")
+            
+
+
+            getAnswers();
+        });  
+        $(this).find(".quizMessage").hide();
+            $(this).find(".preButton").attr('disabled', 'disabled');
 	
-	timedCount();
+	
 	
 	$(this).find(".preButton").on("click", function () 
 	{		
@@ -251,14 +262,16 @@ $(document).ready(function ()
 			viewResults();		
 		}
     });
-
 	
 	// On clicking next, display the next question
     $(this).find(".nextButton").on("click", function () 
 	{
+        console.log("before next button")
+
         if (!quizOver) 
 		{
 			
+
             var val = $("input[type='radio']:checked").val();
 
             if (val == undefined) 
@@ -311,11 +324,7 @@ $(document).ready(function ()
 			hideScore();
 		}
     });
-});
-
-
-            getAnswers();
-        });    
+});  
 
     
 
@@ -353,7 +362,7 @@ function timedCount()
 	}
 function displayCurrentQuestion() 
 {
-
+    console.log("i am in display")
 	if(c == 185) { c = 180; timedCount(); }
     //console.log("In display current Question");
     var secondKey = Object.keys(questions)[currentQuestion];
@@ -376,7 +385,7 @@ function displayCurrentQuestion()
 			$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
 		} else {
 			$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-		}
+		}i
     }
 }
 function hideScore() 
@@ -449,7 +458,7 @@ function viewResults()
     </form >
     <div style="background-color: aqua; ">
         <button class="preButton"  style="width: 160px;" >Previous Question</button>
-        <button class="nextButton" style="width: 160px;" >Next Question</button>
+        <button class="nextButton"  style="width: 160px;" >Next Question</button>
     </div>
 </div>
 <button onclick="getQuestion()">fsd</button>

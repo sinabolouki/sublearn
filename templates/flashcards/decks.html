@@ -57,18 +57,8 @@
         <div class="ui cards" style="margin: 10dp;">
             {% for movie_set in movie_sets %}
                 <a   href="{% url 'flashcards:show_flashcards' movie_set.id %}" class="ui inverted violet button" style="font-size: 18pt; margin-bottom: 10pt;">
-                    <!-- <a href="{% url 'flashcards:show_flashcards' movie_set.id %}" style="align-items: center;"> -->
-                        <!-- {{ movie_set.movie_name }} -->
-                        {{movie_set.movie_name}}
-                        <!-- <div class="content center aligned front">
-                            <br>
-                            <br>
-                            <h2 class="ui purple header" style="color: blue;"> {{ movie_set.movie_name }} </h2>
-                            <br>
-                            <br>
-                        </div> -->
-                        
-                    <!-- </a> -->
+                   
+                        {{movie_set.movie_name}}                      
                     </a>
             {% endfor %}
         </div>
