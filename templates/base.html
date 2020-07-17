@@ -76,13 +76,6 @@ window.onclick = function(event) {
 
         .show {display:block;}
     </style>
-     <script> const cfunction = () =>{
-        // document.getElementById("subtitle").classList.toggle("show")
-        document.getElementById("subtitle").className = "item active" 
-        // document.getElementById("subtitle").classList.add("item active")
-        console.log(document.getElementById("subtitle").className)
-    
-       }</script>
 </head>
 <body style="background-color: antiquewhite;" >
    
@@ -145,20 +138,20 @@ window.onclick = function(event) {
 <div class="ui grid" style="margin: auto; min-height: 80%;">
     {% if user.is_authenticated %}
     <div class="four wide column">
-        <div class="ui large vertical menu">
-            <a class="item active" href="{% url 'users:profile' %}">
+        <div class="ui large vertical menu" id="sidebar">
+            <a id="sidebar_profile" class="item" href="{% url 'users:profile' %}">
                 Profile
             </a>
-            <a  id="subtitle" class="item" onclick="cfunction()" href="{% url 'subtitles:sub_processor' %}  ">
+            <a  id="sidebar_subtitle" class="item" href="{% url 'subtitles:sub_processor' %}  ">
                 Subtitle
             </a>
-            <a onclick="cfunction()" class="item" href="{% url 'flashcards:load_decks' %}">
+            <a id="sidebar_flashcard" class="item" href="{% url 'flashcards:load_decks' %}">
                 Flashcard Decks
             </a>
-            <a onclick="cfunction()" class="item" href="{% url 'users:quiz' %}">
+            <a id="sidebar_quiz" class="item" href="{% url 'users:quiz' %}">
                 Quiz
             </a>
-            <a onclick="cfunction()" class="item" href="{% url 'users:exam' %}">
+            <a id="sidebar_exam" class="item" href="{% url 'users:exam' %}">
                 Exam
             </a>
         </div>

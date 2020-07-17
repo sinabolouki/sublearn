@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
+
+    <script>
+        document.getElementById("sidebar_subtitle").className += " active"
+    </script>
     <div class="ui container" style="margin-top: 1em;">
         <h1 style="font-size: 24pt"> Congrats!</h1>
         <h3 style="font-size: 18pt; margin-bottom: 15pt;">You'll learn {{count}} new words.</h3>
