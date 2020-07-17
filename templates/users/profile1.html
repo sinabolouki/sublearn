@@ -6,8 +6,13 @@
         <div class="ui small image">
             <img src = "{{ user.profile.image.url }}">
         </div>
+        <br><br>
+        <div class="ui red basic large label">
+            Level
+            <div class="detail">{{user.profile.quiz_score}}</div>
+          </div>
     </div>
-    <button class="ui inverted red button">your level is {{user.profile.quiz_score}}</button>
+
 
 
     <div class="ui container" style="margin-top: 1em;">
@@ -41,5 +46,6 @@
 
             <button class="ui button" type="submit">Submit</button>
         </form>
+        <br >
     </div>
 {% endblock content %}
