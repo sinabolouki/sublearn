@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from flashcards.models import Flashcard
 import random
-from random import random
 from .models import Exam, ExamQuestion
 import numpy as np
 
@@ -13,6 +12,7 @@ import numpy as np
 def make_weights(n):
     x = np.arange(1, n + 1, dtype=np.float64)
     weights = 2 * n - x
+    weights = weights / sum(weights)
     return weights
 
 
