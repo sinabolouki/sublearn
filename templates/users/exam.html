@@ -286,7 +286,7 @@ $(document).ready(function ()
 			else 
 			{
                 $(document).find(".quizMessage").hide();
-				if (val == 1) 
+				if (val == 0) 
 				{
 					correctAnswers++;
 				}
@@ -329,7 +329,16 @@ $(document).ready(function ()
 		}
     });
 });  
-
+function resetQuiz()
+	{
+		currentQuestion = 0;
+		correctAnswers = 0;
+		hideScore();
+	}
+function displayScore(){
+    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+	$(document).find(".quizContainer > .result").show();
+}
     
 
 function timedCount()
