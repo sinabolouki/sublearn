@@ -88,6 +88,10 @@
 	
         }
         function iLearnFunc(a){
+            var x = document.getElementById("snackbar");
+            
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             console.log(a)
             var csrftoken = getCookie('csrftoken');
             $.ajaxSetup({
