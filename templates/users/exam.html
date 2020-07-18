@@ -255,7 +255,7 @@ $(document).ready(function ()
 			}
 			
 				currentQuestion--;
-				if (currentQuestion < 10) 
+				if (currentQuestion < Object.entries(questions).length) 
 				{
 					displayCurrentQuestion();
 					
@@ -296,7 +296,7 @@ $(document).ready(function ()
 				if(currentQuestion >= 1) {
 					  $('.preButton').prop("disabled", false);
 				}
-				if (currentQuestion < 10) 
+				if (currentQuestion < Object.entries(questions).length) 
 				{
 					displayCurrentQuestion();
 					
@@ -305,7 +305,7 @@ $(document).ready(function ()
 				{
 					displayScore();
 					$('#iTimeShow').html('Quiz Time Completed!');
-					$('#timer').html("You scored: " + correctAnswers + " out of: " + 10);
+					$('#timer').html("You scored: " + correctAnswers + " out of: " + Object.entries(questions).length);
 					c=185;
 					$(document).find(".preButton").text("View Answer");
 					$(document).find(".nextButton").text("Play Again?");
@@ -358,7 +358,7 @@ function timedCount()
 		{
 					displayScore();
 					$('#iTimeShow').html('Quiz Time Completed!');
-					$('#timer').html("You scored: " + correctAnswers + " out of: " + 10);
+					$('#timer').html("You scored: " + correctAnswers + " out of: " + Object.entries(questions).length);
 					c=185;
 					$(document).find(".preButton").text("View Answer");
 					$(document).find(".nextButton").text("Play Again?");
@@ -409,7 +409,7 @@ function hideScore()
 function viewResults() 
 {
 
-	if(currentQuestion == 10) { currentQuestion = 0;return false; }
+	if(currentQuestion == Object.entries(questions).length) { currentQuestion = 0;return false; }
 	if(viewingAns == 1) { return false; }
 
 	hideScore();
