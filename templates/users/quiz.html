@@ -134,388 +134,389 @@
 		}
 		/* End of Quiz Classes */
 	</style>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-{% csrf_token %}
-<script>
-    var questions = [
-		{
-			question: "1. a1",
-			choices: ["a1", "a2", "a3", "a4"],
-			correctAnswer: 1
-		}, {
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		}, {
-			question: "3. q3",
-			choices: ["3", "3", "3", "3"],
-			correctAnswer: 3
-		}, {
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		}, {
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		},{
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		},{
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		},{
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		},{
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		},{
-			question: "2. q2",
-			choices: ["2", "2", "2", "2"],
-			correctAnswer: 2
-		}
-	];
-    var questions = [{
-    question: "1. what does apple mean?",
-    choices: ["سیب", "آلو بخارا", "انگور", "آلو خشک"],
-    correctAnswer: 1
-}, {
-    question: "2.  what does car mean?",
-    choices: ["ماشین لباشویی", "ماشین", "لباس", "شستشو"],
-    correctAnswer: 2
-}, {
-    question: "3. what does bed mean?",
-    choices: ["تخت خواب", "تخته نرد", "پسر بد", "دختر بد"],
-    correctAnswer: 1
-}, {
-    question: " 4. what does water mean?",
-    choices: ["آتش", "آب", "خاک", "هوا"],
-    correctAnswer: 2
-}, {
-    question: "5. what does sugar mean?",
-    choices: ["یه تیکه طنز دیگه", "از اون آدم پولدارا", "شکر", "قند"],
-    correctAnswer: 3
-},{
-	question: "6. what does photo mean?",
-    choices: ["عکاس", "عکس", "مداد رنگی", "ذرات ماده"],
-    correctAnswer: 2
-},{
-	question: "2. q2",
-    choices: ["2", "2", "2", "2"],
-    correctAnswer: 2
-},{
-	question: "2. q2",
-    choices: ["2", "2", "2", "2"],
-    correctAnswer: 2
-},{
-	question: "2. q2",
-    choices: ["2", "2", "2", "2"],
-    correctAnswer: 2
-},{
-	question: "2. q2",
-    choices: ["2", "2", "2", "2"],
-    correctAnswer: 2
-}];
-
-
-var currentQuestion = 0;
-var viewingAns = 0;
-var correctAnswers = 0;
-var quizOver = false;
-var iSelectedAnswer = [];
-	var c=180;
-	var t;
-$(document).ready(function () 
-{
-    // Display the first question
-    displayCurrentQuestion();
-    $(this).find(".quizMessage").hide();
-    $(this).find(".preButton").attr('disabled', 'disabled');
-	
-	timedCount();
-	
-	$(this).find(".preButton").on("click", function () 
-	{		
-	
-		
-        if (!quizOver) 
-		{
-			if(currentQuestion == 0) {
-				
-				 return false; }
-	
-			if(currentQuestion == 1) {
-			  $(".preButton").attr('disabled', 'disabled');
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	{% csrf_token %}
+	<script>
+		var questions = [
+			{
+				question: "1. a1",
+				choices: ["a1", "a2", "a3", "a4"],
+				correctAnswer: 1
+			}, {
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
+			}, {
+				question: "3. q3",
+				choices: ["3", "3", "3", "3"],
+				correctAnswer: 3
+			}, {
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
+			}, {
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
+			},{
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
+			},{
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
+			},{
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
+			},{
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
+			},{
+				question: "2. q2",
+				choices: ["2", "2", "2", "2"],
+				correctAnswer: 2
 			}
-			
-				currentQuestion--;
-				if (currentQuestion < questions.length) 
-				{
-					displayCurrentQuestion();
-					
-				} 					
-		} else {
-			if(viewingAns == 3) { return false; }
-			currentQuestion = 0; viewingAns = 3;
-			viewResults();		
-		}
-    });
+		];
+		var questions = [{
+		question: "1. what does apple mean?",
+		choices: ["سیب", "آلو بخارا", "انگور", "آلو خشک"],
+		correctAnswer: 0
+	}, {
+		question: "2.  what does car mean?",
+		choices: ["ماشین لباشویی", "ماشین", "لباس", "شستشو"],
+		correctAnswer: 1
+	}, {
+		question: "3. what does bed mean?",
+		choices: ["تخت خواب", "تخته نرد", "پسر بد", "دختر بد"],
+		correctAnswer: 0
+	}, {
+		question: " 4. what does water mean?",
+		choices: ["آتش", "آب", "خاک", "هوا"],
+		correctAnswer: 1
+	}, {
+		question: "5. what does sugar mean?",
+		choices: ["یه تیکه طنز دیگه", "از اون آدم پولدارا", "شکر", "قند"],
+		correctAnswer: 2
+	},{
+		question: "6. what does photo mean?",
+		choices: ["عکاس", "عکس", "مداد رنگی", "ذرات ماده"],
+		correctAnswer: 1
+	},{
+		question: "7. what does carpet mean?",
+		choices: ["لوستر", "‍‍‍مبل", "فرش", "میز"],
+		correctAnswer: 2
+	},{
+		question: "8. what does sheep mean?",
+		choices: ["کشتی", "قایق", "گاو", "گوسفند"],
+		correctAnswer: 3
+	},{
+		question: "9. what does beard mean?",
+		choices: ["کبوتر", "ریش", "نان", "خرس"],
+		correctAnswer: 1
+	},{
+		question: "10. what does approximately mean",
+		choices: ["تقریبا", "دقیقا", "همیشه", "هیچ وقت"],
+		correctAnswer: 0
+	}];
 
-	
-	// On clicking next, display the next question
-    $(this).find(".nextButton").on("click", function () 
+
+	var currentQuestion = 0;
+	var viewingAns = 0;
+	var correctAnswers = 0;
+	var quizOver = false;
+	var iSelectedAnswer = [];
+		var c=180;
+		var t;
+	$(document).ready(function () 
 	{
-        if (!quizOver) 
-		{
+		// Display the first question
+		displayCurrentQuestion();
+		$(this).find(".quizMessage").hide();
+		$(this).find(".preButton").attr('disabled', 'disabled');
+		
+		timedCount();
+		
+		$(this).find(".preButton").on("click", function () 
+		{		
+		
 			
-            var val = $("input[type='radio']:checked").val();
-
-            if (val == undefined) 
+			if (!quizOver) 
 			{
-                $(document).find(".quizMessage").text("Please select an answer");
-                $(document).find(".quizMessage").show();
-            } 
-			else 
-			{
-                $(document).find(".quizMessage").hide();
-				if (val == questions[currentQuestion].correctAnswer) 
-				{
-					correctAnswers++;
-				}
-				iSelectedAnswer[currentQuestion] = val;
-				
-				currentQuestion++; 
-				if(currentQuestion >= 1) {
-					  $('.preButton').prop("disabled", false);
-				}
-				if (currentQuestion < questions.length) 
-				{
-					displayCurrentQuestion();
+				if(currentQuestion == 0) {
 					
+					return false; }
+		
+				if(currentQuestion == 1) {
+				$(".preButton").attr('disabled', 'disabled');
+				}
+				
+					currentQuestion--;
+					if (currentQuestion < questions.length) 
+					{
+						displayCurrentQuestion();
+						
+					} 					
+			} else {
+				if(viewingAns == 3) { return false; }
+				currentQuestion = 0; viewingAns = 3;
+				viewResults();		
+			}
+		});
+
+		
+		// On clicking next, display the next question
+		$(this).find(".nextButton").on("click", function () 
+		{
+			if (!quizOver) 
+			{
+				
+				var val = $("input[type='radio']:checked").val();
+
+				if (val == undefined) 
+				{
+					$(document).find(".quizMessage").text("Please select an answer");
+					$(document).find(".quizMessage").show();
 				} 
 				else 
 				{
-					displayScore();
-					$('#iTimeShow').html('Quiz Time Completed!');
-					$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
-					c=185;
-					$(document).find(".preButton").text("View Answer");
-					$(document).find(".nextButton").text("Play Again?");
-					quizOver = true;
-					return false;
+					$(document).find(".quizMessage").hide();
+					if (val == questions[currentQuestion].correctAnswer) 
+					{
+						correctAnswers++;
+					}
+					iSelectedAnswer[currentQuestion] = val;
 					
+					currentQuestion++; 
+					if(currentQuestion >= 1) {
+						$('.preButton').prop("disabled", false);
+					}
+					if (currentQuestion < questions.length) 
+					{
+						displayCurrentQuestion();
+						
+					} 
+					else 
+					{
+						displayScore();
+						$('#iTimeShow').html('Quiz Time Completed!');
+						$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
+						c=185;
+						$(document).find(".preButton").text("View Answer");
+						$(document).find(".nextButton").text("Play Again?");
+						quizOver = true;
+						return false;
+						
+					}
 				}
+						
+			}	
+			else 
+			{ // quiz is over and clicked the next button (which now displays 'Play Again?'
+				quizOver = false; $('#iTimeShow').html('Time Remaining:'); iSelectedAnswer = [];
+				$(document).find(".nextButton").text("Next Question");
+				$(document).find(".preButton").text("Previous Question");
+				$(".preButton").attr('disabled', 'disabled');
+				resetQuiz();
+				viewingAns = 1;
+				displayCurrentQuestion();
+				hideScore();
 			}
-					
-		}	
-		else 
-		{ // quiz is over and clicked the next button (which now displays 'Play Again?'
-			quizOver = false; $('#iTimeShow').html('Time Remaining:'); iSelectedAnswer = [];
-			$(document).find(".nextButton").text("Next Question");
-			$(document).find(".preButton").text("Previous Question");
-			 $(".preButton").attr('disabled', 'disabled');
-			resetQuiz();
-			viewingAns = 1;
-			displayCurrentQuestion();
-			hideScore();
-		}
-    });
-});
+		});
+	});
 
 
 
-function timedCount()
-	{
-		if(c == 185) 
-		{ 
-			return false; 
-		}
-		
-		var hours = parseInt( c / 3600 ) % 24;
-		var minutes = parseInt( c / 60 ) % 60;
-		var seconds = c % 60;
-		var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
-		$('#timer').html(result);
-		
-		if(c == 0 )
+	function timedCount()
 		{
-					displayScore();
-					$('#iTimeShow').html('Quiz Time Completed!');
-					$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
-					c=185;
-					$(document).find(".preButton").text("View Answer");
-					$(document).find(".nextButton").text("Play Again?");
-					quizOver = true;
-					return false;
-					
-		}
-		
-		c = c - 1;
-		t = setTimeout(function()
-		{
-			timedCount()
-		},1000);
-	}
-	
-	
-function displayCurrentQuestion() 
-{
-
-	if(c == 185) { c = 180; timedCount(); }
-    //console.log("In display current Question");
-    var question = questions[currentQuestion].question;
-    var questionClass = $(document).find(".quizContainer > .question");
-    var choiceList = $(document).find(".quizContainer > .choiceList");
-    var numChoices = questions[currentQuestion].choices.length;
-    // Set the questionClass text to the current question
-    $(questionClass).text(question);
-    // Remove all current <li> elements (if any)
-    $(choiceList).find("li").remove();
-    var choice;
-	
-	
-    for (i = 0; i < numChoices; i++) 
-	{
-        choice = questions[currentQuestion].choices[i];
-		
-		if(iSelectedAnswer[currentQuestion] == i) {
-			$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-		} else {
-			$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-		}
-    }
-}
-
-function resetQuiz()
-{
-    currentQuestion = 0;
-    correctAnswers = 0;
-    hideScore();
-}
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-function displayScore()
-{
-    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
-    $(document).find(".quizContainer > .result").show();
-    var csrftoken = getCookie('csrftoken');
-    $.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-    });
-	$.ajax({
-         url: '/users/quiz_result/',
-         data: {'result': correctAnswers},
-         type: 'POST',
-       }).done(function(response){
-         console.log(response);
-       });
-	
-}
-
-function hideScore() 
-{
-    $(document).find(".result").hide();
-}
-
-function viewResults() 
-{
-
-	if(currentQuestion == 10) { currentQuestion = 0;return false; }
-	if(viewingAns == 1) { return false; }
-
-	hideScore();
-    var question = questions[currentQuestion].question;
-    var questionClass = $(document).find(".quizContainer > .question");
-    var choiceList = $(document).find(".quizContainer > .choiceList");
-    var numChoices = questions[currentQuestion].choices.length;
-    $(questionClass).text(question);
-    $(choiceList).find("li").remove();
-    var choice;
-	
-	
-	for (i = 0; i < numChoices; i++) 
-	{
-        choice = questions[currentQuestion].choices[i];
-		
-		if(iSelectedAnswer[currentQuestion] == i) {
-			if(questions[currentQuestion].correctAnswer == i) {
-				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
-			} else {
-				$('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			if(c == 185) 
+			{ 
+				return false; 
 			}
-		} else {
-			if(questions[currentQuestion].correctAnswer == i) {
-				$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+			
+			var hours = parseInt( c / 3600 ) % 24;
+			var minutes = parseInt( c / 60 ) % 60;
+			var seconds = c % 60;
+			var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
+			$('#timer').html(result);
+			
+			if(c == 0 )
+			{
+						displayScore();
+						$('#iTimeShow').html('Quiz Time Completed!');
+						$('#timer').html("You scored: " + correctAnswers + " out of: " + questions.length);
+						c=185;
+						$(document).find(".preButton").text("View Answer");
+						$(document).find(".nextButton").text("Play Again?");
+						quizOver = true;
+						return false;
+						
+			}
+			
+			c = c - 1;
+			t = setTimeout(function()
+			{
+				timedCount()
+			},1000);
+		}
+		
+		
+	function displayCurrentQuestion() 
+	{
+
+		if(c == 185) { c = 180; timedCount(); }
+		//console.log("In display current Question");
+		var question = questions[currentQuestion].question;
+		var questionClass = $(document).find(".quizContainer > .question");
+		var choiceList = $(document).find(".quizContainer > .choiceList");
+		var numChoices = questions[currentQuestion].choices.length;
+		// Set the questionClass text to the current question
+		$(questionClass).text(question);
+		// Remove all current <li> elements (if any)
+		$(choiceList).find("li").remove();
+		var choice;
+		
+		
+		for (i = 0; i < numChoices; i++) 
+		{
+			choice = questions[currentQuestion].choices[i];
+			
+			if(iSelectedAnswer[currentQuestion] == i) {
+				$('<li><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
 			} else {
 				$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
 			}
 		}
-    }
-	
-	currentQuestion++;
-	
-	setTimeout(function()
-		{
-			viewResults();
-		},3000);
-}
-
-</script>
-<script>
-	function change(){
-		$('.quizContainer')
-		  .transition('fade');
-		console.log("slaamamamla")
-		  
 	}
-</script>
-<title>Sublearn</title>
+
+	function resetQuiz()
+	{
+		currentQuestion = 0;
+		correctAnswers = 0;
+		hideScore();
+	}
+	function getCookie(name) {
+		var cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+
+	function csrfSafeMethod(method) {
+		// these HTTP methods do not require CSRF protection
+		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+
+
+	function displayScore()
+	{
+		$(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+		$(document).find(".quizContainer > .result").show();
+		var csrftoken = getCookie('csrftoken');
+		$.ajaxSetup({
+		beforeSend: function(xhr, settings) {
+			if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+				xhr.setRequestHeader("X-CSRFToken", csrftoken);
+			}
+		}
+		});
+		$.ajax({
+			url: '/users/quiz_result/',
+			data: {'result': correctAnswers},
+			type: 'POST',
+		}).done(function(response){
+			console.log(response);
+		});
+		
+	}
+
+	function hideScore() 
+	{
+		$(document).find(".result").hide();
+	}
+
+	function viewResults() 
+	{
+
+		if(currentQuestion == 10) { currentQuestion = 0;return false; }
+		if(viewingAns == 1) { return false; }
+
+		hideScore();
+		var question = questions[currentQuestion].question;
+		var questionClass = $(document).find(".quizContainer > .question");
+		var choiceList = $(document).find(".quizContainer > .choiceList");
+		var numChoices = questions[currentQuestion].choices.length;
+		$(questionClass).text(question);
+		$(choiceList).find("li").remove();
+		var choice;
+		
+		
+		for (i = 0; i < numChoices; i++) 
+		{
+			choice = questions[currentQuestion].choices[i];
+			
+			if(iSelectedAnswer[currentQuestion] == i) {
+				if(questions[currentQuestion].correctAnswer == i) {
+					$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+				} else {
+					$('<li style="border:2px solid red;margin-top:10px;"><input type="radio" class="radio-inline" checked="checked"  value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+				}
+			} else {
+				if(questions[currentQuestion].correctAnswer == i) {
+					$('<li style="border:2px solid green;margin-top:10px;"><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+				} else {
+					$('<li><input type="radio" class="radio-inline" value=' + i + ' name="dynradio" />' +  ' ' + choice  + '</li>').appendTo(choiceList);
+				}
+			}
+		}
+		
+		currentQuestion++;
+		
+		setTimeout(function()
+			{
+				viewResults();
+			},3000);
+	}
+
+	</script>
+	<script>
+		function change(){
+			$('.quizContainer')
+			.transition('fade');
+			console.log("slaamamamla")
+			
+		}
+	</script>
+	<title>Sublearn</title>
 </head>
+
 <body>
     <div class="quizContainer" >
-        <div id="quiz1" class="text-center">
-			<h3>Sublearn quize</h3>
+        <div id="quiz1" style="text-align: center;">
+			<h2>Sublearn quiz</h2>
 			<h4 style="color:#FF0000;position:absolute;left:70%;top:30%;"  >
-				<span id="iTimeShow">Time Remaining: </span>
+				<span id="iTimeShow">
+					Time Remaining: 
+				</span>
 				<br/>
-				<span id='timer' style="font-size:25px;"></span>
+				<span id='timer' style="font-size:25px;">
+				</span>
 			</h4>
-			<h2>English Test</h2>
-			
-		
 		</div>
 	
         <div class="question"></div>
@@ -530,5 +531,6 @@ function viewResults()
 		</div>
 	</div>
 </body>
+
 </html>
   {% endblock content %}
