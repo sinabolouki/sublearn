@@ -1,5 +1,66 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+    #snackbar_learn {
+  visibility: hidden; 
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px; 
+  position: fixed; 
+  z-index: 1; 
+  left: 50%;
+  bottom: 30px;
+}
+#snackbar_know {
+  visibility: hidden; 
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px; 
+  position: fixed; 
+  z-index: 1; 
+  left: 50%;
+  bottom: 30px;
+}
+
+#snackbar_learn.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbar_know.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+</style>
     <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
     <script>
         function getCookie(name) {
@@ -24,6 +85,10 @@
         }
 
         function iKnowFunc(a){
+            var x = document.getElementById("snackbar_know");
+            
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             var csrftoken = getCookie('csrftoken');
             $.ajaxSetup({
             beforeSend: function(xhr, settings) {
@@ -39,9 +104,11 @@
             }).done(function(response){
                 console.log(response);
             });
-	
         }
         function iLearnFunc(a){
+            var x = document.getElementById("snackbar_learn");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             console.log(a)
             var csrftoken = getCookie('csrftoken');
             $.ajaxSetup({
@@ -58,8 +125,8 @@
             }).done(function(response){
                 console.log(response);
             });
-	
         }
+
     </script>
     <style>
     
@@ -90,6 +157,8 @@
                         </div>
                     </div>
                 </div>
+                <div id="snackbar_learn">Congrats!! New Word</div>
+                <div id="snackbar_know">Review Done</div>
             {% endfor %}
         </div>
         {% else %}
@@ -100,14 +169,8 @@
     <script>
         $(function($) {
             $(".flip_card").flip();
-            // // if (document.getElementById("id1").style.visibility == 'hidden')
-            // //     document.getElementById("id1").style.visibility = 'hidden'
-            // console.log("slamal")
+
         })
-        // function function1(){
-        //     if (document.getElementById("id1").style.visibility=='hidden'){
-        //         document.getElementById("id1").style
-        //     }
-        // }
+  
     </script>
 {% endblock content %}

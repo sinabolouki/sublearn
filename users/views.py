@@ -29,7 +29,10 @@ def user_home(request):
 
 @login_required()
 def get_quiz(request):
-    return render(request, 'users/quiz.html')
+    premium = request.user.profile.premium_date
+    if premium < timezone.now():
+        return render(request, 'flashcards/quiz.html', {'is_premium': False})
+    return render(request, 'users/quiz.html', {'is_premium': True})
 
 
 def user_register(request):
@@ -193,3 +196,10 @@ def quiz_result(request):
             return JsonResponse(data)
         data = {'response': 'success'}
         return JsonResponse(data)
+
+
+def get_exam(request):
+    premium = request.user.profile.premium_date
+    if premium < timezone.now():
+        return render(request, 'flashcards/exam.html', {'is_premium': False})
+    return render(request, 'users/exam.html', {'is_premium': True})
