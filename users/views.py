@@ -29,10 +29,7 @@ def user_home(request):
 
 @login_required()
 def get_quiz(request):
-    premium = request.user.profile.premium_date
-    if premium < timezone.now():
-        return render(request, 'flashcards/quiz.html', {'is_premium': False})
-    return render(request, 'users/quiz.html', {'is_premium': True})
+    return render(request, 'users/quiz.html')
 
 
 def user_register(request):
