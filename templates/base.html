@@ -59,11 +59,12 @@ function getCookie(name) {
             }
             });
             $.ajax({
-                url: '/user/buy_premium/',
+                url: '/users/buy_premium/',
                 data: {'day':a},
                 type: 'POST',
             }).done(function(response){
                 console.log(response);
+            
             });
 	
   }

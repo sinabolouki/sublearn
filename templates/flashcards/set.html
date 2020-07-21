@@ -86,13 +86,9 @@
         }
 
         function iKnowFunc(a){
-<<<<<<< HEAD
-            var x = document.getElementById("snackbar");
-            x.textContent = "یه کلمه دیگه یاد گرفتی برو بعدی"
-=======
+
             var x = document.getElementById("snackbar_know");
             
->>>>>>> master
             x.className = "show";
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             var csrftoken = getCookie('csrftoken');
@@ -112,12 +108,7 @@
             });
         }
         function iLearnFunc(a){
-<<<<<<< HEAD
-            var x = document.getElementById("snackbar");
-            x.textContent = "نرینی سلطان"
-=======
             var x = document.getElementById("snackbar_learn");
->>>>>>> master
             x.className = "show";
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             console.log(a)
@@ -169,13 +160,10 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <div id="snackbar"></div>
 
-=======
+
                 <div id="snackbar_learn">Congrats!! New Word</div>
                 <div id="snackbar_know">Review Done</div>
->>>>>>> master
             {% endfor %}
         </div>
         {% else %}
