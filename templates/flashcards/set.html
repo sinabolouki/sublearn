@@ -44,6 +44,7 @@
 </style>
     <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
     <script>
+        
         function getCookie(name) {
             var cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -67,7 +68,7 @@
 
         function iKnowFunc(a){
             var x = document.getElementById("snackbar");
-            
+            x.textContent = "یه کلمه دیگه یاد گرفتی برو بعدی"
             x.className = "show";
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             var csrftoken = getCookie('csrftoken');
@@ -89,7 +90,7 @@
         }
         function iLearnFunc(a){
             var x = document.getElementById("snackbar");
-            
+            x.textContent = "نرینی سلطان"
             x.className = "show";
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             console.log(a)
@@ -120,9 +121,10 @@
         <h1> {{ set.movie_name }} </h1>
         {% if set.flashcard_set.all %}
         
-        <div class="ui cards" >
+        <div class="ui cards"  >
             {% for flashcard in set.flashcard_set.all %}
-                <div class="flip_card ui card" >
+                <div class="flip_card ui card" style="background-color: rgba(0, 255, 0, 0.3);">
+                    
                     <div class="content center aligned front" style="-webkit-transform:rotateY(0deg);" >
                         <br>
                         <h2> {{ flashcard.english_word }} </h2>
@@ -141,7 +143,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="snackbar">che baladi che na be kire amo feli</div>
+                <div id="snackbar"></div>
 
             {% endfor %}
         </div>
@@ -153,6 +155,7 @@
     <script>
         $(function($) {
             $(".flip_card").flip();
+            $(".positive").flip();
 
         })
   

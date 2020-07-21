@@ -81,11 +81,22 @@
   {% if movie_sets %}
   <div class="ui cards" style="margin: 10dp;">
       {% for movie_set in movie_sets %}
+      
           <a   href="{% url 'flashcards:show_flashcards' movie_set.id %}" class="ui inverted violet button" style="font-size: 18pt; margin-bottom: 10pt;">    
                   {{movie_set.movie_name}}
           </a>
+        
       {% endfor %}
   </div>
+  <!-- <div class="ui cards" style="margin: 10dp;">
+    {% for movie_set in movie_sets %}
+    
+        <a   href="{% url 'flashcards:show_flashcards' movie_set.id %}" class="ui inverted violet button" style="font-size: 18pt; margin-bottom: 10pt; padding-right: 10dp;">    
+                exam from {{movie_set.movie_name}}
+        </a>
+      
+    {% endfor %}
+</div> -->
   {% else %}
       <h2>You've not created any decks.</h2>
   {% endif %}
