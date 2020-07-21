@@ -197,7 +197,7 @@ def quiz_result(request):
 def get_exam(request):
     premium = request.user.profile.premium_date
     if premium < timezone.now():
-        return render(request, 'flashcards/exam.html', {'is_premium': False})
+        return render(request, 'users/exam.html', {'is_premium': False})
     return render(request, 'users/exam.html', {'is_premium': True})
 
 
