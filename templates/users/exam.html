@@ -226,6 +226,11 @@ $(document).ready(function ()
         });
         $.ajax({
             url: '/exams/create/',
+            {% if 'id' in  request.GET %}
+                data: {
+                    'id': {{ request.GET.id}}
+                },
+            {% endif %}
             type: 'POST',
         }).done(function(response){
             questions = response.questions;

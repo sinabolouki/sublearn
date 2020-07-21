@@ -166,6 +166,9 @@
                 <div id="snackbar_know">Review Done</div>
             {% endfor %}
         </div>
+            <a href="{% url 'users:exam' %}?id={{ set.id }}">
+                <button class="ui button"> take exam</button>
+            </a>
         {% else %}
             <h2>This movie deck does not have any flashcards.</h2>
         {% endif %}

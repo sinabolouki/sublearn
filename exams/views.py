@@ -20,7 +20,7 @@ def make_weights(n):
 def create_exam(request):
     movie_id = request.POST.get('id')
     if movie_id is not None and movie_id != '' and movie_id != 'null':
-        flashcards = Flashcard.objects.filter(movie_id=request.user.id).order_by('-times_failed',
+        flashcards = Flashcard.objects.filter(movie_id=movie_id).order_by('-times_failed',
                                                                                  'times_remembered')
     else:
         flashcards = Flashcard.objects.filter(movie__user_id=request.user.id).order_by('-times_failed',
