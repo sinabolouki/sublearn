@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 <style>
-    #snackbar {
+    #snackbar_learn {
+  visibility: hidden; 
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px; 
+  position: fixed; 
+  z-index: 1; 
+  left: 50%;
+  bottom: 30px;
+}
+#snackbar_know {
   visibility: hidden; 
   min-width: 250px; 
   margin-left: -125px; 
@@ -16,7 +30,12 @@
   bottom: 30px;
 }
 
-#snackbar.show {
+#snackbar_learn.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbar_know.show {
   visibility: visible; 
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
@@ -67,8 +86,13 @@
         }
 
         function iKnowFunc(a){
+<<<<<<< HEAD
             var x = document.getElementById("snackbar");
             x.textContent = "یه کلمه دیگه یاد گرفتی برو بعدی"
+=======
+            var x = document.getElementById("snackbar_know");
+            
+>>>>>>> master
             x.className = "show";
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             var csrftoken = getCookie('csrftoken');
@@ -86,11 +110,14 @@
             }).done(function(response){
                 console.log(response);
             });
-	
         }
         function iLearnFunc(a){
+<<<<<<< HEAD
             var x = document.getElementById("snackbar");
             x.textContent = "نرینی سلطان"
+=======
+            var x = document.getElementById("snackbar_learn");
+>>>>>>> master
             x.className = "show";
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             console.log(a)
@@ -109,7 +136,6 @@
             }).done(function(response){
                 console.log(response);
             });
-	
         }
 
     </script>
@@ -143,8 +169,13 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div id="snackbar"></div>
 
+=======
+                <div id="snackbar_learn">Congrats!! New Word</div>
+                <div id="snackbar_know">Review Done</div>
+>>>>>>> master
             {% endfor %}
         </div>
         {% else %}
