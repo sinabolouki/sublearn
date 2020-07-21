@@ -198,8 +198,19 @@ def quiz_result(request):
         return JsonResponse(data)
 
 
+@login_required
 def get_exam(request):
     premium = request.user.profile.premium_date
     if premium < timezone.now():
         return render(request, 'flashcards/exam.html', {'is_premium': False})
     return render(request, 'users/exam.html', {'is_premium': True})
+
+
+@login_required
+def buy_premium(request):
+    days = int(request.POST.get('day'))
+    profile = request.user.profile
+    profile.premium_date = profile.premium_date + timezone.timedelta(days=days)
+    profile.save()
+    data = {'response': 'success'}
+    return JsonResponse(data)
