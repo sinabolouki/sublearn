@@ -67,6 +67,12 @@
     color: white;
   }
 </style>
+<script>
+ function sendFunc(a){
+  var value1= a;
+  window.location.href = "../users/exam.html" + value1;
+ }
+</script>
 {% if is_premium %}
 <div id="myProgress">
     <div id="myBar"></div>
@@ -86,6 +92,7 @@
           <a   href="{% url 'flashcards:show_flashcards' movie_set.id %}" class="ui inverted violet button" style="font-size: 18pt; margin-bottom: 10pt;">    
                   {{movie_set.movie_name}}
           </a>
+          <button onclick="sendFunc('3')">examms</button>
         
       {% endfor %}
   </div>

@@ -138,7 +138,11 @@
 
 
 <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
-
+<script>
+    var queryString = decodeURIComponent(window.location.search);
+queryString = queryString.substring(1);
+console.log(queryString)
+</script>
 <script>
     questions = {}
     var currentQuestion = 0;
