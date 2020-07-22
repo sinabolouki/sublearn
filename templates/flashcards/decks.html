@@ -13,16 +13,16 @@
   function altermove(b){
       console.log(b)
   }
-  function move(a) {
+  function move(a,b) {
       
-      console.log()
+      console.log(b)
     if (i == 0) {
       i = 1;
       var elem = document.getElementById("myBar");
       var width = 10;
       var id = setInterval(frame, 10);
       function frame() {
-        if (width >= 50) {
+        if (width >= a/b * 100) {
           clearInterval(id);
           // i = 0;
         } else {
@@ -74,8 +74,9 @@
 </div>
 
 <!-- <div>{{learnt_flashcards}}</div> -->
-<button class="ui button" onclick=" move('{{learnt_flashcards}}');">
+<button class="ui button" onclick=" move('{{learnt_flashcards}}','{{all_flashcards}}');">
   show score
+  
 </button>
 <div>
 </div>

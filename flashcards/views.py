@@ -13,7 +13,7 @@ def load_decks(request):
         return render(request, 'flashcards/decks.html', {'is_premium': False})
     movie_sets = request.user.movieset_set.all().order_by('-date_added')
     known_flash_cards = Flashcard.objects.filter(movie__user_id=request.user.id, times_remembered__gt=0).count()
-    all_flash_cards = Flashcard.objects.filter(movie__user_id = request.user.id)
+    all_flash_cards = Flashcard.objects.filter(movie__user_id = request.user.id).count()
     context = {'movie_sets': movie_sets, 'title': 'Flashcard Decks', 'learnt_flashcards': known_flash_cards,
                'all_flashcards': all_flash_cards, 'is_premium': True}
     return render(request, 'flashcards/decks.html', context)
