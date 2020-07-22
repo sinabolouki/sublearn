@@ -170,8 +170,50 @@ function getCookie(name) {
         .show {display:block;}
     </style>
 </head>
+<style>
+    #myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+    #myBtn {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #ddd;
+  color: black;
+}
+</style>
 <body style="background-color: antiquewhite;" >
-   
+    <video autoplay muted loop id="myVideo">
+        <source src="/media/rain.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <button id="myBtn" onclick="myFunc()">Pause</button>
+      
+<script>
+    var video = document.getElementById("myVideo");
+    var btn = document.getElementById("myBtn");
+    
+    function myFunc() {
+      if (video.paused) {
+        video.play();
+        btn.innerHTML = "Pause";
+      } else {
+        video.pause();
+        btn.innerHTML = "Play";
+      }
+    }
+    </script>
 
 <!-- Following Menu -->
 {% block menu %}
